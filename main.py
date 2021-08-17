@@ -13,7 +13,7 @@ def main(imgIn, imgOut, passwd):
 
   #define random seed for repeatable results
   #use size as an additional source of chaos
-  seed = hashlib.md5((passwd+str((im.size[0]/im.size[1]))).encode('utf-8'))
+  seed = hashlib.md5((passwd+str((im.size[0]*im.size[1]+(im.size[0]-im.size[1])))).encode('utf-8'))
   random.seed(seed.hexdigest())
   
   #shuffle pixels
