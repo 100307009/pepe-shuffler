@@ -1,5 +1,7 @@
 from PIL import Image
 import random
+import hashlib
+
 
 def main(imgIn, imgOut, passwd):
 
@@ -10,7 +12,9 @@ def main(imgIn, imgOut, passwd):
 
 
   #define random seed for repeatable results
-  random.seed(passwd)
+  #use size as an additional source of chaos
+  seed = hashlib.md5((passwd+str((im.size[0]/im.size[1]))).encode('utf-8'))
+  random.seed(seed.hexdigest())
   
   #shuffle pixels
   for channel in rgba:
@@ -31,7 +35,6 @@ def pixShuffle(channel):
   
   #shuffles all pairs
   random.shuffle(XY)
-  print(XY[0])
   #loads pixel map
   px = channel.load()
 
